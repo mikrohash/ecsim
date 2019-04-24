@@ -36,6 +36,10 @@ public class Tangle {
             vertex.addChild(child);
     }
 
+    public Vertex getVertex(Transaction transaction) {
+        return findVertexByHash(transaction.hash);
+    }
+
     public Vertex findVertexByHash(String hash) {
         return verticesByHash.get(hash);
     }

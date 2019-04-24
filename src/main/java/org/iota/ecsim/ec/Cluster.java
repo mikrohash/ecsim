@@ -49,7 +49,6 @@ public class Cluster {
             if(particle.transaction == Transaction.NULL_TRANSACTION) transitions.remove(particle);
             if(walkLogger != null) walkLogger.add(particle.transaction.hash);
             particle = walkRandomly(transitions);
-            System.err.println(particle.transaction.hash);
         }
         if(walkLogger != null)  walkLogger.add(particle.transaction.hash);
         return particle.transaction.hash;

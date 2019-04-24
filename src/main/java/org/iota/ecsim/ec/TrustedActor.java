@@ -2,6 +2,7 @@ package org.iota.ecsim.ec;
 
 import org.iota.ecsim.Constants;
 import org.iota.ecsim.ict.tangle.DoubleCone;
+import org.iota.ecsim.ict.tangle.DoubleConeDag;
 import org.iota.ecsim.ict.tangle.Vertex;
 
 import java.util.HashMap;
@@ -21,11 +22,8 @@ public class TrustedActor {
     }
 
     public double calcConfidence(String transactionHash) {
-        double confidence = 0;
-        for(DoubleCone doubleCone : markersWithDoubleCones.values())
-            if(doubleCone.pastContains(transactionHash))
-                confidence++;
-        return confidence / Math.max(markersWithDoubleCones.values().size(), 1E-80);
+        DoubleConeDag dcDag = new DoubleConeDag(markersWithDoubleCones.values());
+        return dcDag.countReferencing(transactionHash) / Math.max(markersWithDoubleCones.values().size(), 1E-80);
     }
 
     public void process(Vertex vertex) {

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MultiHashMap<K, V> {
 
-    private final Map<K, List<V>> implementation = new HashMap<>();
+    private Map<K, List<V>> implementation = new HashMap<>();
 
     public void add(K key, V value) {
         implementation.putIfAbsent(key, new LinkedList<>());
@@ -16,11 +16,19 @@ public class MultiHashMap<K, V> {
             list.add(value);
     }
 
+    public void clear() {
+        implementation = new HashMap<>();
+    }
+
     public List<V> get(K key) {
         return implementation.getOrDefault(key, new LinkedList<>());
     }
 
     public void remove(K key) {
         implementation.remove(key);
+    }
+
+    public int size() {
+        return implementation.size();
     }
 }

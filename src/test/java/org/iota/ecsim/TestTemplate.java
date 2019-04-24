@@ -57,14 +57,22 @@ public class TestTemplate {
         c = null;
     }
 
-    protected Transaction createReferenceOf(Vertex vertex) {
+    protected static Transaction createReferenceOf(Vertex vertex) {
         return createReferenceOf(vertex.transaction.hash);
     }
 
-    protected Transaction createReferenceOf(String referenced) {
-        boolean ReferByTrunk = Math.random() < 0.5;
-        String trunk = ReferByTrunk ? referenced : Trytes.NULL_HASH;
-        String branch = ReferByTrunk ? Trytes.NULL_HASH : referenced;
+    protected static Transaction createReferenceOf(Transaction transaction) {
+        return createReferenceOf(transaction.hash);
+    }
+
+    protected static Transaction createReferenceOf(String reference) {
+        return createReferenceOf(reference, Transaction.NULL_TRANSACTION.hash);
+    }
+
+    protected static Transaction createReferenceOf(String reference1, String reference2) {
+        boolean Reference1ByTrunk = Math.random() < 0.5;
+        String trunk = Reference1ByTrunk ? reference1 : reference2;
+        String branch = Reference1ByTrunk ? reference2 : reference1;
         return new Transaction(Trytes.randomHash(), trunk, branch);
     }
 }

@@ -48,9 +48,9 @@ public class ActorTest extends TestTemplate {
 
         assertSpendValidity(node, actor, address, balance, headGenesis.hash,false);
 
-        // fails because last assertSpendValidity() call replaced tip with tip spanning up an invalid sub-tangle TODO consider validity in random walk
+        // cannot select tip by random walk because last assertSpendValidity() call replaced tip with tip spanning up an invalid sub-tangle
 
-        actor.issueMarker();
+        actor.issueMarker(headGenesis.hash);
         assertEquals("Unexpected confidence.",1.0, node.getCluster().calcConfidence(headGenesis.hash), 1E-3);
 
         assertSpendValidity(node, actor, address, balance, headGenesis.hash,true);

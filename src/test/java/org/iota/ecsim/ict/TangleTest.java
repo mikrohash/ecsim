@@ -15,7 +15,7 @@ public class TangleTest extends TestTemplate {
     public void testVertexBuilding() {
         Node node = newNode();
 
-        Vertex nullVertex = node.getTangle().findVertexByHash(Trytes.NULL_HASH);
+        Vertex nullVertex = node.getTangle().getVertex(Transaction.NULL_TRANSACTION);
         assertNotNull("Could not find vertex of NULL transaction.", nullVertex);
 
         Transaction reference = createReferenceOf(nullVertex);
@@ -24,10 +24,10 @@ public class TangleTest extends TestTemplate {
         node.submit(metaReference);
         node.submit(reference);
 
-        Vertex referenceVertex = node.getTangle().findVertexByHash(reference.hash);
+        Vertex referenceVertex = node.getTangle().getVertex(reference);
         assertNotNull("Reference was not added to Tangle.", referenceVertex);
 
-        Vertex metaReferenceVertex = node.getTangle().findVertexByHash(metaReference.hash);
+        Vertex metaReferenceVertex = node.getTangle().getVertex(metaReference);
         assertNotNull("Meta reference was not added to Tangle.", metaReferenceVertex);
 
         assertReference(referenceVertex, nullVertex);

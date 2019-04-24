@@ -28,7 +28,7 @@ public class NodeTest extends TestTemplate {
     }
 
     private static void assertTransactionReceived(Node node, Transaction transaction) {
-        assertNotNull("Neighbor did not receive transaction.", node.getTangle().findVertexByHash(transaction.hash));
+        assertNotNull("Neighbor did not receive transaction.", node.getTangle().getVertex(transaction));
     }
 
     private static Transaction submitSimpleTransaction(Node node) {

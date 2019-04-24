@@ -16,15 +16,23 @@ public class Actor {
     }
 
     /**
+     * Tries repeatedly to issue a marker. Runs until it either found a confirmable tip or runs out of tries.
+     * */
+    public boolean issueMarker(int tries) {
+        for(int i = 0; i < tries; i++)
+            if(issueMarker()) return true;
+        return false;
+    }
+
+    /**
      * Does a random walk to find a tip and issues a marker to that tip if the past cone of that tip can be validated.
      * */
     public boolean issueMarker() {
         String tip = node.getCluster().doRandomWalk(node.getTangle());
-        System.out.println(tip);
-        boolean ispastConeValid = isPastConeValid(tip);
-        if(ispastConeValid)
+        boolean isPastConeValid = isPastConeValid(tip);
+        if(isPastConeValid)
             issueMarker(tip);
-        return ispastConeValid;
+        return isPastConeValid;
     }
 
     /**
